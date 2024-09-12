@@ -4,6 +4,7 @@ import rl "github.com/gen2brain/raylib-go/raylib"
 
 type Text struct {
 	rl.Vector2
+	Visible  bool
 	Color    rl.Color
 	FontSize float
 	Spacing  float
@@ -27,6 +28,7 @@ func NewText(
 		// Default values.
 		Spacing: 6,
 		Font:    rl.GetFontDefault(),
+		Visible: true,
 	}
 }
 
@@ -37,6 +39,7 @@ func NewTextEx(
 	font rl.Font,
 	pos rl.Vector2,
 	spacing float,
+	visible bool,
 ) Text {
 	return Text{
 		txt:      txt,
@@ -45,10 +48,11 @@ func NewTextEx(
 		Font:     font,
 		Vector2:  pos,
 		Spacing:  spacing,
+		Visible:  visible,
 	}
 }
 
-func (t Text) Size() rl.Vector2 {
+func (t *Text) Measure() rl.Vector2 {
 	return rl.MeasureTextEx(
 		t.Font,
 		t.txt,
@@ -66,6 +70,9 @@ func (t *Text) SetText(txt string) {
 }
 
 func (t Text) Draw() {
+	if !t.Visible {
+		return
+	}
 	rl.DrawTextEx(
 		t.Font,
 		t.txt,
