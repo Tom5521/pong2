@@ -16,9 +16,9 @@ func NewBall() Ball {
 			Y: Height / 2,
 		},
 
-		Radius: 20,
-		SpeedX: 7,
-		SpeedY: 7,
+		Radius: 15,
+		SpeedX: 5,
+		SpeedY: 5,
 	}
 }
 

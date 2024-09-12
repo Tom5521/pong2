@@ -8,7 +8,7 @@ type (
 
 const (
 	Width  = 800
-	Height = 600
+	Height = 400
 )
 
 func main() {

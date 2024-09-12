@@ -7,3 +7,8 @@ type Drawer interface {
 type Updater interface {
 	Update()
 }
+
+type UpdaterDrawer interface {
+	Drawer
+	Updater
+}
