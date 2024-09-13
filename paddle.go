@@ -43,6 +43,6 @@ func (p *Paddle) Update() {
 	p.limitMovement()
 }
 
-func (p *Paddle) Draw() {
+func (p Paddle) Draw() {
 	rl.DrawRectangleRec(p.Rectangle, rl.White)
 }

@@ -8,13 +8,13 @@ import (
 
 type Game struct {
 	// Frame counter.
-	Frames long
+	Frames long // TODO: Remove this.
 
 	// Instances.
 
-	Ball    Ball
-	Player  Paddle
-	Player2 Paddle2
+	Ball   *Ball
+	Player Paddle
+	CPU    CPU
 
 	// Text fields.
 	Texts struct {
@@ -29,7 +29,7 @@ type Game struct {
 	Options struct {
 		Paused       bool
 		Waiting4Play bool
-		Muted        *bool
+		Muted        *bool // WARN: I think this should not be a pointer, but it can still be passed up.
 	}
 }
 
@@ -42,23 +42,13 @@ func (g *Game) Draw() {
 		rl.DarkGray,
 	)
 
-	// Center line for debugging.
-	rl.DrawLine(
-		0,
-		Height/2,
-		Width,
-		Height/2,
-		rl.Red,
-	)
-
-	// Draw texts.
 	g.Texts.PlayerScore.Draw()
 	g.Texts.CPUScore.Draw()
 	g.Texts.Wait4Play.Draw()
 	g.Texts.Muted.Draw()
 	g.Texts.Pause.Draw()
 
-	g.Player2.Draw()
+	g.CPU.Draw()
 	g.Player.Draw()
 	g.Ball.Draw()
 }
@@ -69,7 +59,7 @@ func (g *Game) Run() {
 	defer rl.CloseWindow()
 	defer rl.CloseAudioDevice()
 
-	rl.SetTargetFPS(60)
+	rl.SetTargetFPS(60) // This probably fits better in 30.
 
 	audio.Load()
 	g.initTextFields()

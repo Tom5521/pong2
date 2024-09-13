@@ -1,6 +1,8 @@
 package main
 
-import rl "github.com/gen2brain/raylib-go/raylib"
+import (
+	rl "github.com/gen2brain/raylib-go/raylib"
+)
 
 type Ball struct {
 	rl.Vector2
@@ -9,8 +11,8 @@ type Ball struct {
 	SpeedX, SpeedY float
 }
 
-func NewBall() Ball {
-	return Ball{
+func NewBall() *Ball {
+	return &Ball{
 		Vector2: rl.Vector2{
 			X: Width / 2,
 			Y: Height / 2,

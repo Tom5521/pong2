@@ -1,12 +1,9 @@
-//go:build ignore
-// +build ignore
-
 package main
 
 type CPU struct {
 	Paddle
 
-	BallY *float
+	BallYPtr *float
 }
 
 func NewCPU(ballYPtr *float) CPU {
@@ -18,12 +15,11 @@ func NewCPU(ballYPtr *float) CPU {
 	return cpu
 }
 
-func (c *CPU) Update() {
-	if *c.BallY > c.Y {
+func (c CPU) Update() {
+	if *c.BallYPtr > c.Y {
 		c.Y += c.Speed
 	}
-	if *c.BallY < c.Y {
+	if *c.BallYPtr < c.Y {
 		c.Y -= c.Speed
 	}
-	c.limitMovement()
 }

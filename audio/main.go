@@ -1,3 +1,5 @@
+// TODO:This could be improved by using a map and ready to go.
+
 package audio
 
 import (

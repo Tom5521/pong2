@@ -13,7 +13,7 @@ func NewGame() Game {
 
 	g.Ball = NewBall()
 	g.Player = NewPaddle()
-	g.Player2 = NewPaddle2()
+	g.CPU = NewCPU(&g.Ball.Y)
 
 	return g
 }
@@ -21,6 +21,7 @@ func NewGame() Game {
 func (g *Game) initOptions() {
 	o := &g.Options
 	o.Muted = &audio.Mute
+	*o.Muted = true
 	o.Waiting4Play = true
 }
 

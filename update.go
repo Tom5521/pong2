@@ -1,9 +1,8 @@
 package main
 
 import (
-	"strconv"
-
 	"pong2/audio"
+	"strconv"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -11,7 +10,7 @@ import (
 func (g *Game) Update() {
 	g.Frames++
 
-	g.Player2.Update()
+	g.CPU.Update()
 	g.Player.Update()
 	g.Ball.Update()
 
@@ -22,14 +21,14 @@ func (g *Game) Update() {
 func (g *Game) checkCollisions() {
 	// Checking for collisions
 
-	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.Player2.Rectangle) {
+	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.CPU.Rectangle) {
 		// Check if the ball hits the top or the bottom of the paddle.
-		if g.Ball.Y < g.Player2.Y || g.Ball.Y > g.Player2.Y+g.Player2.Height {
+		if g.Ball.Y < g.CPU.Y || g.Ball.Y > g.CPU.Y+g.CPU.Height {
 			g.Ball.SpeedY *= -1
 		}
 
 		// Check if the ball hits the left/right side.
-		if g.Ball.X < g.Player2.X || g.Ball.X > g.Player2.X+g.Player2.Width {
+		if g.Ball.X < g.CPU.X || g.Ball.X > g.CPU.X+g.CPU.Width {
 			g.Ball.SpeedX *= -1
 		}
 
@@ -73,8 +72,8 @@ func (g *Game) checkPoints() {
 	)
 
 	if player {
-		g.Player2.Score++
-		g.Texts.CPUScore.SetText(strconv.Itoa(g.Player2.Score))
+		g.CPU.Score++
+		g.Texts.CPUScore.SetText(strconv.Itoa(g.CPU.Score))
 
 		audio.Play(audio.Lose)
 	}
