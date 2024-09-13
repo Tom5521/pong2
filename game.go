@@ -12,14 +12,12 @@ type Game struct {
 
 	// Instances.
 
-	Ball   Ball
-	Paddle Paddle
-	CPU    CPU
+	Ball    Ball
+	Player  Paddle
+	Player2 Paddle2
 
 	// Text fields.
 	Texts struct {
-		Drawers []Text
-
 		CPUScore    Text
 		PlayerScore Text
 
@@ -32,86 +30,6 @@ type Game struct {
 		Paused       bool
 		Waiting4Play bool
 		Muted        *bool
-	}
-
-	// Update/Draw slices.
-
-	Drawers  []Drawer
-	Updaters []Updater
-}
-
-func NewGame() Game {
-	var g Game
-
-	g.initOptions()
-
-	g.Ball = NewBall()
-	g.Paddle = NewPaddle()
-	g.CPU = NewCPU(&g.Ball.Y)
-
-	g.addInstance(&g.Ball)
-	g.addInstance(&g.Paddle)
-	g.addInstance(&g.CPU)
-
-	return g
-}
-
-func (g *Game) initOptions() {
-	o := &g.Options
-	o.Muted = &audio.Mute
-	o.Waiting4Play = true
-}
-
-func (g *Game) initTextFields() {
-	t := &g.Texts
-
-	// Player Score.
-	t.PlayerScore = NewText("0", 50, rl.Gray, rl.Vector2{})
-	t.PlayerScore.Y = Height/2 - t.PlayerScore.Measure().Y/2
-	t.PlayerScore.X = Width/2 + t.PlayerScore.Measure().X*3
-
-	// CPU Score.
-	t.CPUScore = NewText("0", 50, rl.Gray, rl.Vector2{})
-	t.CPUScore.Y = t.PlayerScore.Y
-	t.CPUScore.X = Width/2 - t.CPUScore.Measure().X*4
-
-	// Wait for play.
-	t.Wait4Play = NewText("Press [SPACE] to start", 50, rl.White, rl.Vector2{})
-	t.Wait4Play.Y = Height/3 - t.Wait4Play.Measure().Y/2
-	t.Wait4Play.X = Width/2 - t.Wait4Play.Measure().X/2
-	t.Wait4Play.Visible = false
-
-	// Muted.
-	t.Muted = NewText("MUTED", 50, rl.White, rl.Vector2{})
-	t.Muted.Visible = false
-
-	// Paused.
-	t.Pause = NewText("PAUSED", 50, rl.White, rl.Vector2{})
-	t.Pause.Y = Height/3 - t.Pause.Measure().Y/2
-	t.Pause.Visible = false
-
-	t.Drawers = append(
-		t.Drawers,
-		// Scoring.
-		t.PlayerScore,
-		t.CPUScore,
-		// Options.
-		t.Wait4Play,
-		t.Muted,
-		t.Pause,
-	)
-}
-
-func (g *Game) addInstance(appends ...any) {
-	for _, a := range appends {
-		u, ok := a.(Updater)
-		if ok {
-			g.Updaters = append(g.Updaters, u)
-		}
-		d, ok := a.(Drawer)
-		if ok {
-			g.Drawers = append(g.Drawers, d)
-		}
 	}
 }
 
@@ -134,13 +52,15 @@ func (g *Game) Draw() {
 	)
 
 	// Draw texts.
-	for _, d := range g.Texts.Drawers {
-		d.Draw()
-	}
-	// Draw instances.
-	for _, d := range g.Drawers {
-		d.Draw()
-	}
+	g.Texts.PlayerScore.Draw()
+	g.Texts.CPUScore.Draw()
+	g.Texts.Wait4Play.Draw()
+	g.Texts.Muted.Draw()
+	g.Texts.Pause.Draw()
+
+	g.Player2.Draw()
+	g.Player.Draw()
+	g.Ball.Draw()
 }
 
 func (g *Game) Run() {

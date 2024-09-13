@@ -6,6 +6,7 @@ type Paddle struct {
 	rl.Rectangle
 
 	Speed float
+	Score int
 }
 
 func NewPaddle() Paddle {
@@ -33,9 +34,9 @@ func (p *Paddle) limitMovement() {
 
 func (p *Paddle) Update() {
 	switch {
-	case rl.IsKeyDown(rl.KeyUp) || rl.IsKeyDown(rl.KeyW):
+	case rl.IsKeyDown(rl.KeyUp):
 		p.Y -= p.Speed
-	case rl.IsKeyDown(rl.KeyDown) || rl.IsKeyDown(rl.KeyS):
+	case rl.IsKeyDown(rl.KeyDown):
 		p.Y += p.Speed
 	}
 

@@ -27,11 +27,11 @@ func (b *Ball) Update() {
 	b.Y += b.SpeedY
 
 	if b.X+b.Radius >= Width || b.X-b.Radius <= 0 {
-		b.SpeedX = -b.SpeedX
+		b.SpeedX *= -1
 	}
 
 	if b.Y+b.Radius >= Height || b.Y-b.Radius <= 0 {
-		b.SpeedY = -b.SpeedY
+		b.SpeedY *= -1
 	}
 }
 

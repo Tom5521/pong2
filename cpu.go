@@ -1,3 +1,6 @@
+//go:build ignore
+// +build ignore
+
 package main
 
 type CPU struct {
@@ -22,4 +25,5 @@ func (c *CPU) Update() {
 	if *c.BallY < c.Y {
 		c.Y -= c.Speed
 	}
+	c.limitMovement()
 }
