@@ -14,11 +14,9 @@ var assets embed.FS
 
 var Mute bool
 
-var S map[string]rl.Sound
+var S = make(map[string]rl.Sound)
 
 func Load() {
-	S = make(map[string]rl.Sound)
-
 	dirs, _ := assets.ReadDir("assets")
 	for _, d := range dirs {
 		file, _ := assets.ReadFile("assets/" + d.Name())
