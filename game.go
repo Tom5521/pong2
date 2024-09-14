@@ -18,14 +18,14 @@ type Game struct {
 
 	// Text fields.
 	Texts struct {
-		Texts []*Text
+		Texts []Drawer
 
 		CPUScore    Text
 		PlayerScore Text
 
-		Pause     Text
-		Muted     Text
-		Wait4Play Text
+		Pause     TextVPtr
+		Muted     TextVPtr
+		Wait4Play TextVPtr
 	}
 
 	Options struct {
@@ -34,7 +34,47 @@ type Game struct {
 		Muted        *bool // WARN: I think this should not be a pointer, but it can still be passed up.
 	}
 
-	Drawers []Drawer
+	Drawers  []Drawer
+	Updaters []Updater
+}
+
+func (g *Game) ResetToDefaultPositions() {
+	cpuScore := g.CPU.Score
+	playerScore := g.Player.Score
+
+	g.ResetInstances()
+
+	g.CPU.Score = cpuScore
+	g.Player.Score = playerScore
+
+	g.ResetTextFields()
+}
+
+func (g *Game) ResetInstances() {
+	g.initOptions()
+
+	g.Ball = NewBall()
+	g.Player = NewPaddle()
+	g.CPU = NewCPU(&g.Ball.Y)
+
+	g.Drawers = nil
+	g.Updaters = nil
+
+	g.appendUpdateDrawers(
+		g.Ball,
+		g.Player,
+		g.CPU,
+	)
+}
+
+func (g *Game) ResetTextFields() {
+	g.Texts.Texts = nil
+	g.initTextFields()
+}
+
+func (g *Game) ResetToDefaultState() {
+	g.ResetInstances()
+	g.ResetTextFields()
 }
 
 func (g *Game) Draw() {
@@ -49,10 +89,9 @@ func (g *Game) Draw() {
 	for _, t := range g.Texts.Texts {
 		t.Draw()
 	}
-
-	g.CPU.Draw()
-	g.Player.Draw()
-	g.Ball.Draw()
+	for _, d := range g.Drawers {
+		d.Draw()
+	}
 }
 
 func (g *Game) Run() {

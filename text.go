@@ -82,3 +82,40 @@ func (t Text) Draw() {
 		t.Color,
 	)
 }
+
+type TextVPtr struct {
+	Text
+	Visible *bool
+}
+
+func NewTextVPtr(
+	txt string,
+	size float,
+	color rl.Color,
+	pos rl.Vector2,
+	vPtr *bool,
+) TextVPtr {
+	return TextVPtr{
+		NewText(
+			txt,
+			size,
+			color,
+			pos,
+		),
+		vPtr,
+	}
+}
+
+func (t TextVPtr) Draw() {
+	if !*t.Visible {
+		return
+	}
+	rl.DrawTextEx(
+		t.Font,
+		t.txt,
+		t.Vector2,
+		t.FontSize,
+		t.Spacing,
+		t.Color,
+	)
+}

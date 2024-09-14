@@ -34,9 +34,9 @@ func (p *Paddle) limitMovement() {
 
 func (p *Paddle) Update() {
 	switch {
-	case rl.IsKeyDown(rl.KeyUp):
+	case rl.IsKeyDown(rl.KeyUp), rl.IsKeyDown(rl.KeyW):
 		p.Y -= p.Speed
-	case rl.IsKeyDown(rl.KeyDown):
+	case rl.IsKeyDown(rl.KeyDown), rl.IsKeyDown(rl.KeyS):
 		p.Y += p.Speed
 	}
 

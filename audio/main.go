@@ -14,6 +14,8 @@ var assets embed.FS
 
 var Mute bool
 
+var S map[string]rl.Sound
+
 var (
 	Beep    rl.Sound
 	Lose    rl.Sound
@@ -21,25 +23,24 @@ var (
 	Victory rl.Sound
 )
 
-func load(name string) rl.Sound {
-	file, _ := assets.ReadFile("assets/" + name)
+func Load() {
+	S = make(map[string]rl.Sound)
 
-	parts := strings.Split(name, ".")
+	dirs, _ := assets.ReadDir("assets")
+	for _, d := range dirs {
+		file, _ := assets.ReadFile("assets/" + d.Name())
 
-	wave := rl.LoadWaveFromMemory("."+parts[len(parts)-1], file, int32(len(file)))
-	return rl.LoadSoundFromWave(wave)
+		parts := strings.Split(d.Name(), ".")
+		wave := rl.LoadWaveFromMemory("."+parts[len(parts)-1], file, int32(len(file)))
+
+		sound := rl.LoadSoundFromWave(wave)
+		S[parts[0]] = sound
+	}
 }
 
-func Play(s rl.Sound) {
+func Play(n string) {
 	if Mute {
 		return
 	}
-	rl.PlaySound(s)
-}
-
-func Load() {
-	Beep = load("beep.mp3")
-	Lose = load("lose.mp3")
-	Pause = load("pause.wav")
-	Victory = load("victory.mp3")
+	rl.PlaySound(S[n])
 }

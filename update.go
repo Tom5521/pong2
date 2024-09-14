@@ -1,8 +1,9 @@
 package main
 
 import (
-	"pong2/audio"
 	"strconv"
+
+	"pong2/audio"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -10,9 +11,27 @@ import (
 func (g *Game) Update() {
 	g.Frames++
 
-	g.CPU.Update()
-	g.Player.Update()
-	g.Ball.Update()
+	switch {
+	case rl.IsKeyPressed(rl.KeyR):
+		g.ResetToDefaultState()
+	case rl.IsKeyPressed(rl.KeyM):
+		*g.Options.Muted = !*g.Options.Muted
+	case rl.IsKeyPressed(rl.KeySpace):
+		audio.Play("pause")
+		if g.Options.Waiting4Play {
+			g.Options.Waiting4Play = !g.Options.Waiting4Play
+			break
+		}
+		g.Options.Paused = !g.Options.Paused
+	}
+
+	if g.Options.Paused || g.Options.Waiting4Play {
+		return
+	}
+
+	for _, u := range g.Updaters {
+		u.Update()
+	}
 
 	g.checkPoints()
 	g.checkCollisions()
@@ -32,7 +51,7 @@ func (g *Game) checkCollisions() {
 			g.Ball.SpeedX *= -1
 		}
 
-		audio.Play(audio.Beep)
+		audio.Play("beep")
 	}
 	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.Player.Rectangle) {
 		// Check if the ball hits the top or the bottom of the paddle.
@@ -44,7 +63,7 @@ func (g *Game) checkCollisions() {
 			g.Ball.SpeedX *= -1
 		}
 
-		audio.Play(audio.Beep)
+		audio.Play("beep")
 	}
 }
 
@@ -75,17 +94,16 @@ func (g *Game) checkPoints() {
 		g.CPU.Score++
 		g.Texts.CPUScore.SetText(strconv.Itoa(g.CPU.Score))
 
-		audio.Play(audio.Lose)
+		audio.Play("lose")
 	}
 
 	if cpu {
 		g.Player.Score++
 		g.Texts.PlayerScore.SetText(strconv.Itoa(g.Player.Score))
 
-		audio.Play(audio.Victory)
+		audio.Play("victory")
 	}
-	// TODO: Finish this.
-	// if player || cpu {
-	// 	g.ResetToDefaultState()
-	// }
+	if player || cpu {
+		g.ResetToDefaultPositions()
+	}
 }

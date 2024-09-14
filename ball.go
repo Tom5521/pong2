@@ -12,7 +12,7 @@ type Ball struct {
 }
 
 func NewBall() *Ball {
-	b := Ball{
+	return &Ball{
 		Vector2: rl.Vector2{
 			X: Width / 2,
 			Y: Height / 2,
@@ -22,12 +22,6 @@ func NewBall() *Ball {
 		SpeedX: 5,
 		SpeedY: 5,
 	}
-
-	return &b
-}
-
-func (b *Ball) Vector() rl.Vector2 {
-	return b.Vector2
 }
 
 func (b *Ball) Update() {
