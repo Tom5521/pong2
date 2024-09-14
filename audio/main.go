@@ -16,13 +16,6 @@ var Mute bool
 
 var S map[string]rl.Sound
 
-var (
-	Beep    rl.Sound
-	Lose    rl.Sound
-	Pause   rl.Sound
-	Victory rl.Sound
-)
-
 func Load() {
 	S = make(map[string]rl.Sound)
 
