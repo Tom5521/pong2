@@ -12,7 +12,7 @@ type Ball struct {
 }
 
 func NewBall() *Ball {
-	return &Ball{
+	b := Ball{
 		Vector2: rl.Vector2{
 			X: Width / 2,
 			Y: Height / 2,
@@ -22,6 +22,12 @@ func NewBall() *Ball {
 		SpeedX: 5,
 		SpeedY: 5,
 	}
+
+	return &b
+}
+
+func (b *Ball) Vector() rl.Vector2 {
+	return b.Vector2
 }
 
 func (b *Ball) Update() {
@@ -37,6 +43,6 @@ func (b *Ball) Update() {
 	}
 }
 
-func (b *Ball) Draw() {
+func (b Ball) Draw() {
 	rl.DrawCircleV(b.Vector2, b.Radius, rl.White)
 }

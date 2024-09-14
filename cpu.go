@@ -1,25 +1,27 @@
 package main
 
 type CPU struct {
-	Paddle
+	*Paddle
 
-	BallYPtr *float
+	ballYPtr *float
 }
 
-func NewCPU(ballYPtr *float) CPU {
+func NewCPU(ballYPtr *float) *CPU {
 	cpu := CPU{NewPaddle(), ballYPtr}
 
 	cpu.Speed /= 2
 	cpu.X = 0
 
-	return cpu
+	return &cpu
 }
 
-func (c CPU) Update() {
-	if *c.BallYPtr > c.Y {
+func (c *CPU) Update() {
+	if *c.ballYPtr > c.Y {
 		c.Y += c.Speed
 	}
-	if *c.BallYPtr < c.Y {
+	if *c.ballYPtr < c.Y {
 		c.Y -= c.Speed
 	}
+
+	c.limitMovement()
 }

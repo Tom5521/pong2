@@ -13,11 +13,13 @@ type Game struct {
 	// Instances.
 
 	Ball   *Ball
-	Player Paddle
-	CPU    CPU
+	Player *Paddle
+	CPU    *CPU
 
 	// Text fields.
 	Texts struct {
+		Texts []*Text
+
 		CPUScore    Text
 		PlayerScore Text
 
@@ -31,6 +33,8 @@ type Game struct {
 		Waiting4Play bool
 		Muted        *bool // WARN: I think this should not be a pointer, but it can still be passed up.
 	}
+
+	Drawers []Drawer
 }
 
 func (g *Game) Draw() {
@@ -42,11 +46,9 @@ func (g *Game) Draw() {
 		rl.DarkGray,
 	)
 
-	g.Texts.PlayerScore.Draw()
-	g.Texts.CPUScore.Draw()
-	g.Texts.Wait4Play.Draw()
-	g.Texts.Muted.Draw()
-	g.Texts.Pause.Draw()
+	for _, t := range g.Texts.Texts {
+		t.Draw()
+	}
 
 	g.CPU.Draw()
 	g.Player.Draw()

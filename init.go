@@ -52,4 +52,12 @@ func (g *Game) initTextFields() {
 	t.Pause = NewText("PAUSED", 50, rl.White, rl.Vector2{})
 	t.Pause.Y = Height/3 - t.Pause.Measure().Y/2
 	t.Pause.Visible = false
+
+	t.Texts = append(t.Texts,
+		&t.PlayerScore,
+		&t.CPUScore,
+		&t.Wait4Play,
+		&t.Muted,
+		&t.Pause,
+	)
 }

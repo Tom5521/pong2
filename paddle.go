@@ -9,7 +9,7 @@ type Paddle struct {
 	Score int
 }
 
-func NewPaddle() Paddle {
+func NewPaddle() *Paddle {
 	var p Paddle
 
 	p.Width = 20
@@ -20,7 +20,7 @@ func NewPaddle() Paddle {
 
 	p.Speed = 8
 
-	return p
+	return &p
 }
 
 func (p *Paddle) limitMovement() {
