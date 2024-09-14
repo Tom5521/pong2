@@ -6,7 +6,7 @@ A simple pong game made with golang and raylib.
 
 ## Screenshots
 
-![screenshot1](./screenshots/scr1.png)
+![screenshot1](./screenshots/gameplay.gif)
 
 ## Controls
 
