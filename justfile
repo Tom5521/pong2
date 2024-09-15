@@ -16,35 +16,7 @@ compile:
     just build linux amd64
 
 build os arch:
-    #!/bin/bash
-
-    bin_name=./builds/pong-{{os}}-{{arch}}
-    compiler=gcc
-    cgo_enabled=1
-    ldflags="-s -w"
-    tags="-tags 'rgfw'"
-
-    if [[ "{{os}}" == "windows" ]]; then
-        bin_name="$bin_name.exe"
-        compiler=x86_64-w64-mingw32-gcc
-        ldflags="$ldflags -H=windowsgui"
-        tags=""
-    fi
-    CGO_ENABLED=$cgo_enabled CC=$compiler GOOS={{os}} GOARCH={{arch}} \
-    go build -ldflags "$ldflags" -v $tags -o $bin_name
-
-    if [[ {{skip-compress}} == 1 ]]; then
-        exit 0
-    fi
-
-    just compress $bin_name 
+    ./scripts/build.sh {{os}} {{arch}}
 
 compress bin:
-    #!/bin/bash
-
-    which upx > /dev/null 2>&1
-    if [[ $? != 0 ]]; then
-        exit 0
-    fi
-
-    upx -9 {{bin}}
+    ./scripts/compress.sh {{bin}}
