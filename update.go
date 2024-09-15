@@ -11,6 +11,10 @@ import (
 func (g *Game) Update() {
 	g.Frames++
 
+	if g.GUI.Visible {
+		return
+	}
+
 	switch {
 	case rl.IsKeyPressed(rl.KeyR):
 		g.ResetToDefaultState()

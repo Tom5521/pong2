@@ -29,7 +29,28 @@ func (g *Game) appendUpdateDrawers(appends ...any) {
 func (g *Game) initOptions() {
 	o := &g.Options
 	o.Muted = &audio.Mute
-	o.Waiting4Play = true
+	o.Waiting4Play = !g.devel
+
+	g.GUI.Mute = &audio.Mute
+	g.GUI.Visible = true
+
+	g.devel = true
+}
+
+func (g *Game) initGUI() {
+	grid := &g.GUI.grid
+	// https://www.reddit.com/r/programminghorror/comments/1fhgc1p/it_just_came_to_my_mind_that_i_could_do_this/
+	// lol.
+	for i := range cap(grid) {
+		for j := range cap(grid[i]) {
+			grid[i][j] = rl.Rectangle{
+				Width:  200,
+				Height: 50,
+				X:      float(i) * 200,
+				Y:      float(j) * 50,
+			}
+		}
+	}
 }
 
 func (g *Game) initTextFields() {

@@ -34,6 +34,18 @@ type Game struct {
 		Muted        *bool // WARN: I think this should not be a pointer, but it can still be passed up.
 	}
 
+	GUI struct {
+		grid [Width / 200][Height / 50]rl.Rectangle
+
+		Visible bool
+
+		Play     bool
+		Settings bool
+		Mute     *bool
+	}
+
+	devel bool
+
 	Drawers  []Drawer
 	Updaters []Updater
 }
@@ -77,6 +89,18 @@ func (g *Game) ResetToDefaultState() {
 	g.ResetTextFields()
 }
 
+func (g *Game) DrawGUI() {
+	ui := &g.GUI
+
+	if g.devel {
+		for i := range ui.grid {
+			for j := range ui.grid[i] {
+				rl.DrawRectangleLinesEx(ui.grid[i][j], 1, rl.Red)
+			}
+		}
+	}
+}
+
 func (g *Game) Draw() {
 	rl.DrawLine(
 		Width/2,
@@ -92,6 +116,10 @@ func (g *Game) Draw() {
 	for _, d := range g.Drawers {
 		d.Draw()
 	}
+
+	if g.GUI.Visible {
+		g.DrawGUI()
+	}
 }
 
 func (g *Game) Run() {
@@ -104,6 +132,7 @@ func (g *Game) Run() {
 
 	audio.Load()
 	g.initTextFields()
+	g.initGUI()
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
