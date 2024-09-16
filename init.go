@@ -29,8 +29,6 @@ func (g *Game) appendUpdateDrawers(appends ...any) {
 func (g *Game) initOptions() {
 	o := &g.Options
 	o.Muted = &audio.Mute
-
-	// g.devel = true
 }
 
 func (g *Game) initGUI() {

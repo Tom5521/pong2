@@ -10,6 +10,8 @@ const (
 	Height = 500
 )
 
+var devel bool
+
 func main() {
 	game := NewGame()
 	game.Run()
