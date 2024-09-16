@@ -146,6 +146,8 @@ func (g *Game) Draw() {
 			Height/2,
 			rl.DarkGray,
 		)
+
+		rl.DrawFPS(0, 0)
 	}
 
 	if g.GUI.Visible {
