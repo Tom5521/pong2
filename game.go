@@ -1,8 +1,11 @@
 package main
 
 import (
+	"fmt"
+
 	"pong2/audio"
 
+	"github.com/gen2brain/raylib-go/raygui"
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -95,9 +98,32 @@ func (g *Game) DrawGUI() {
 	if g.devel {
 		for i := range ui.grid {
 			for j := range ui.grid[i] {
-				rl.DrawRectangleLinesEx(ui.grid[i][j], 1, rl.Red)
+				r := ui.grid[i][j]
+				rl.DrawRectangleLinesEx(r, 1, rl.Red)
+
+				rl.DrawText(
+					fmt.Sprintf("x:%v,y:%v", i, j),
+					int32(r.X),
+					int32(r.Y),
+					20,
+					rl.White,
+				)
 			}
 		}
+	}
+
+	ui.Play = raygui.Button(ui.grid[0][3], "Play")
+	ui.Settings = raygui.Button(ui.grid[0][5], "Settings")
+
+	muteTxt := "Mute"
+	if *g.Options.Muted {
+		muteTxt = "Muted"
+	}
+	*g.Options.Muted = raygui.Toggle(ui.grid[0][7], muteTxt, *g.Options.Muted)
+
+	if ui.Play {
+		g.Options.Waiting4Play = false
+		g.GUI.Visible = false
 	}
 }
 
@@ -113,12 +139,14 @@ func (g *Game) Draw() {
 	for _, t := range g.Texts.Texts {
 		t.Draw()
 	}
-	for _, d := range g.Drawers {
-		d.Draw()
-	}
 
 	if g.GUI.Visible {
 		g.DrawGUI()
+		return
+	}
+
+	for _, d := range g.Drawers {
+		d.Draw()
 	}
 }
 
