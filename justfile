@@ -16,7 +16,7 @@ compile:
     just build linux amd64
 
 build os arch:
-    ./scripts/build.sh {{os}} {{arch}}
+    SKIP_COMPRESS={{skip-compress}} ./scripts/build.sh {{os}} {{arch}}
 
 compress bin:
     ./scripts/compress.sh {{bin}}

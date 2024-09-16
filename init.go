@@ -29,15 +29,13 @@ func (g *Game) appendUpdateDrawers(appends ...any) {
 func (g *Game) initOptions() {
 	o := &g.Options
 	o.Muted = &audio.Mute
-	// o.Waiting4Play = !g.devel
 
-	g.GUI.Mute = &audio.Mute
-	g.GUI.Visible = true
-
-	g.devel = true
+	// g.devel = true
 }
 
 func (g *Game) initGUI() {
+	g.GUI.Mute = &audio.Mute
+	g.GUI.Visible = true
 	grid := &g.GUI.grid
 	// https://www.reddit.com/r/programminghorror/comments/1fhgc1p/it_just_came_to_my_mind_that_i_could_do_this/
 	// lol.

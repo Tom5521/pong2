@@ -12,6 +12,7 @@ func (g *Game) Update() {
 	g.Frames++
 
 	if g.GUI.Visible {
+		g.Ball.Update()
 		return
 	}
 
@@ -109,5 +110,6 @@ func (g *Game) checkPoints() {
 	}
 	if player || cpu {
 		g.ResetToDefaultPositions()
+		g.Options.Waiting4Play = true
 	}
 }

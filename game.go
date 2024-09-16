@@ -92,7 +92,7 @@ func (g *Game) ResetToDefaultState() {
 	g.ResetTextFields()
 }
 
-func (g *Game) DrawGUI() {
+func (g *Game) RenderGUI() {
 	ui := &g.GUI
 
 	if g.devel {
@@ -115,6 +115,9 @@ func (g *Game) DrawGUI() {
 	ui.Play = raygui.Button(ui.grid[0][3], "Play")
 	ui.Settings = raygui.Button(ui.grid[0][5], "Settings")
 
+	rl.DrawText("PONG", int32(ui.grid[2][2].X), int32(ui.grid[2][2].Y), 140, rl.White)
+	rl.DrawText("By Tom5521", int32(ui.grid[2][5].X), int32(ui.grid[2][5].Y), 30, rl.Gray)
+
 	muteTxt := "Mute"
 	if *g.Options.Muted {
 		muteTxt = "Muted"
@@ -122,8 +125,10 @@ func (g *Game) DrawGUI() {
 	*g.Options.Muted = raygui.Toggle(ui.grid[0][7], muteTxt, *g.Options.Muted)
 
 	if ui.Play {
-		g.Options.Waiting4Play = false
+		g.Options.Waiting4Play = true
 		g.GUI.Visible = false
+
+		g.ResetInstances()
 	}
 }
 
@@ -136,13 +141,14 @@ func (g *Game) Draw() {
 		rl.DarkGray,
 	)
 
-	for _, t := range g.Texts.Texts {
-		t.Draw()
+	if g.GUI.Visible {
+		g.Ball.Draw()
+		g.RenderGUI()
+		return
 	}
 
-	if g.GUI.Visible {
-		g.DrawGUI()
-		return
+	for _, t := range g.Texts.Texts {
+		t.Draw()
 	}
 
 	for _, d := range g.Drawers {
