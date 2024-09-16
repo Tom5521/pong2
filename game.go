@@ -179,7 +179,7 @@ func (g *Game) Run() {
 	defer rl.CloseWindow()
 	defer rl.CloseAudioDevice()
 
-	rl.SetTargetFPS(60) // This probably fits better in 30.
+	rl.SetTargetFPS(60)
 
 	audio.Load()
 	g.initTextFields()

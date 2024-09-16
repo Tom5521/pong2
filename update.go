@@ -73,27 +73,34 @@ func (g *Game) checkCollisions() {
 }
 
 func (g *Game) checkPoints() {
+	prect := rl.Rectangle{
+		Width:  1,
+		Height: Height,
+		X:      Width,
+		Y:      0,
+	}
 	player := rl.CheckCollisionCircleRec(
 		g.Ball.Vector2,
 		g.Ball.Radius,
-		rl.Rectangle{
-			Width:  1,
-			Height: Height,
-			X:      Width,
-			Y:      0,
-		},
+		prect,
 	)
 
+	crect := rl.Rectangle{
+		Width:  1,
+		Height: Height,
+		X:      1,
+		Y:      0,
+	}
 	cpu := rl.CheckCollisionCircleRec(
 		g.Ball.Vector2,
 		g.Ball.Radius,
-		rl.Rectangle{
-			Width:  1,
-			Height: Height,
-			X:      1,
-			Y:      0,
-		},
+		crect,
 	)
+
+	if devel {
+		rl.DrawRectangleRec(prect, rl.Red)
+		rl.DrawRectangleRec(crect, rl.Red)
+	}
 
 	if player {
 		g.CPU.Score++
