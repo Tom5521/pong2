@@ -104,14 +104,14 @@ func (g *Game) checkPoints() {
 
 	if player {
 		g.CPU.Score++
-		g.Texts.CPUScore.SetText(strconv.Itoa(g.CPU.Score))
+		g.Texts.CPUScore.SetText(strconv.Itoa(int(g.CPU.Score)))
 
 		audio.Play("lose")
 	}
 
 	if cpu {
 		g.Player.Score++
-		g.Texts.PlayerScore.SetText(strconv.Itoa(g.Player.Score))
+		g.Texts.PlayerScore.SetText(strconv.Itoa(int(g.Player.Score)))
 
 		audio.Play("victory")
 	}

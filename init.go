@@ -38,6 +38,8 @@ func (g *Game) initGUI() {
 	// https://www.reddit.com/r/programminghorror/comments/1fhgc1p/it_just_came_to_my_mind_that_i_could_do_this/
 	// lol.
 	// sudo: this incident will be reported.
+
+	// Create the buttons grid for better management.
 	for i := range cap(grid) {
 		for j := range cap(grid[i]) {
 			grid[i][j] = rl.Rectangle{
@@ -55,7 +57,7 @@ func (g *Game) initTextFields() {
 
 	// Player Score.
 	t.PlayerScore = NewText(
-		strconv.Itoa(g.Player.Score),
+		strconv.Itoa(int(g.Player.Score)),
 		50,
 		rl.Gray,
 		rl.Vector2{},
@@ -65,7 +67,7 @@ func (g *Game) initTextFields() {
 
 	// CPU Score.
 	t.CPUScore = NewText(
-		strconv.Itoa(g.CPU.Score),
+		strconv.Itoa(int(g.CPU.Score)),
 		50,
 		rl.Gray,
 		rl.Vector2{},

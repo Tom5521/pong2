@@ -6,7 +6,7 @@ type Paddle struct {
 	rl.Rectangle
 
 	Speed float
-	Score int
+	Score byte
 }
 
 func NewPaddle() *Paddle {
