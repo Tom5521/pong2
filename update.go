@@ -118,5 +118,11 @@ func (g *Game) checkPoints() {
 	if player || cpu {
 		g.ResetToDefaultPositions()
 		g.Options.Waiting4Play = true
+
+		// Invert ball direction if the CPU wins a point.
+		if player {
+			g.Ball.SpeedX *= -1
+			g.Ball.SpeedY *= -1
+		}
 	}
 }
