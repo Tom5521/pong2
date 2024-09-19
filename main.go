@@ -2,7 +2,6 @@ package main
 
 type (
 	float = float32
-	long  = int64
 )
 
 const (
