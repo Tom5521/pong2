@@ -7,7 +7,7 @@ bin_name=./builds/pong-$os-$arch
 compiler=gcc
 cgo_enabled=1
 ldflags="-s -w"
-tags="-tags 'rgfw'"
+tags="-tags sdl"
 
 if [[ $1 == "windows" ]]; then
   bin_name="$bin_name.exe"
