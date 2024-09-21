@@ -1,5 +1,4 @@
 
-skip-compress := env_var_or_default("SKIP_COMPRESS","0")
 devel := env_var_or_default("devel","")
 
 run:
@@ -19,7 +18,6 @@ compile:
     just build linux amd64
 
 build os arch:
-    SKIP_COMPRESS={{skip-compress}} ./scripts/build.sh {{os}} {{arch}}
+    ./scripts/build.sh {{os}} {{arch}}
 
-compress bin:
-    ./scripts/compress.sh {{bin}}
+
