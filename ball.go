@@ -9,6 +9,9 @@ type Ball struct {
 	Radius float
 
 	SpeedX, SpeedY float
+
+	hitLast bool
+	hits    byte
 }
 
 func NewBall() *Ball {

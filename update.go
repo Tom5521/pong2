@@ -1,8 +1,6 @@
 package main
 
 import (
-	"strconv"
-
 	"pong2/audio"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -40,89 +38,4 @@ func (g *Game) Update() {
 
 	g.checkPoints()
 	g.checkCollisions()
-}
-
-func (g *Game) checkCollisions() {
-	// Checking for collisions
-
-	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.CPU.Rectangle) {
-		// Check if the ball hits the top or the bottom of the paddle.
-		if g.Ball.Y < g.CPU.Y || g.Ball.Y > g.CPU.Y+g.CPU.Height {
-			g.Ball.SpeedY *= -1
-		}
-
-		// Check if the ball hits the left/right side.
-		if g.Ball.X < g.CPU.X || g.Ball.X > g.CPU.X+g.CPU.Width {
-			g.Ball.SpeedX *= -1
-		}
-
-		audio.Play("beep")
-	}
-	if rl.CheckCollisionCircleRec(g.Ball.Vector2, g.Ball.Radius, g.Player.Rectangle) {
-		// Check if the ball hits the top or the bottom of the paddle.
-		if g.Ball.Y < g.Player.Y || g.Ball.Y > g.Player.Y+g.Player.Height {
-			g.Ball.SpeedY *= -1
-		}
-		// Check if the ball hits the left/right side.
-		if g.Ball.X < g.Player.X || g.Ball.X > g.Player.X+g.Player.Width {
-			g.Ball.SpeedX *= -1
-		}
-
-		audio.Play("beep")
-	}
-}
-
-func (g *Game) checkPoints() {
-	prect := rl.Rectangle{
-		Width:  1,
-		Height: Height,
-		X:      Width,
-		Y:      0,
-	}
-	player := rl.CheckCollisionCircleRec(
-		g.Ball.Vector2,
-		g.Ball.Radius,
-		prect,
-	)
-
-	crect := rl.Rectangle{
-		Width:  1,
-		Height: Height,
-		X:      1,
-		Y:      0,
-	}
-	cpu := rl.CheckCollisionCircleRec(
-		g.Ball.Vector2,
-		g.Ball.Radius,
-		crect,
-	)
-
-	if devel {
-		rl.DrawRectangleRec(prect, rl.Red)
-		rl.DrawRectangleRec(crect, rl.Red)
-	}
-
-	if player {
-		g.CPU.Score++
-		g.Texts.CPUScore.SetText(strconv.Itoa(int(g.CPU.Score)))
-
-		audio.Play("lose")
-	}
-
-	if cpu {
-		g.Player.Score++
-		g.Texts.PlayerScore.SetText(strconv.Itoa(int(g.Player.Score)))
-
-		audio.Play("victory")
-	}
-	if player || cpu {
-		g.ResetToDefaultPositions()
-		g.Options.Waiting4Play = true
-
-		// Invert ball direction if the CPU wins a point.
-		if player {
-			g.Ball.SpeedX *= -1
-			g.Ball.SpeedY *= -1
-		}
-	}
 }
