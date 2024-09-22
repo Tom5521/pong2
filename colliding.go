@@ -49,8 +49,22 @@ func (g *Game) checkCollisions() {
 		}
 
 		text := fmt.Sprintf(`hits: %v  |//^\\|  state: %v`, g.Ball.hits, g.Ball.hitLast)
-		measure := rl.MeasureTextEx(rl.GetFontDefault(), text, 20, 6)
-		rl.DrawText(text, rint(Width-measure.X), rint(Height-measure.Y), 20, rl.Red)
+		measure := rl.MeasureTextEx(rl.GetFontDefault(), text, 20, 2)
+		color := rl.Red
+		if g.Ball.hitLast {
+			color = rl.Green
+		}
+		rl.DrawTextEx(
+			rl.GetFontDefault(),
+			text,
+			rl.Vector2{
+				X: Width - measure.X,
+				Y: Height - measure.Y,
+			},
+			20,
+			2,
+			color,
+		)
 		fallthrough // Run default.
 	default:
 		g.Ball.hitLast = false
