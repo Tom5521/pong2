@@ -9,7 +9,7 @@ cgo_enabled=1
 ldflags="-s -w"
 tags="-tags sdl"
 
-if [[ $1 == "windows" ]]; then
+if [[ "$1" == "windows" ]]; then
   bin_name="$bin_name.exe"
   cc="x86_64-w64-mingw32-gcc"
   ldflags="$ldflags -H=windowsgui"
