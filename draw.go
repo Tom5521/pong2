@@ -18,8 +18,8 @@ func (g *Game) RenderGUI() {
 
 				rl.DrawText(
 					fmt.Sprintf("x:%v,y:%v", i, j),
-					int32(r.X),
-					int32(r.Y),
+					rint(r.X),
+					rint(r.Y),
 					20,
 					rl.White,
 				)
@@ -32,8 +32,8 @@ func (g *Game) RenderGUI() {
 		ui.Settings = raygui.Button(ui.grid[0][5], "Settings")
 	}
 
-	rl.DrawText("PONG", int32(ui.grid[2][2].X), int32(ui.grid[2][2].Y), 140, rl.White)
-	rl.DrawText("By Tom5521", int32(ui.grid[2][5].X), int32(ui.grid[2][5].Y), 30, rl.Gray)
+	rl.DrawText("PONG", rint(ui.grid[2][2].X), rint(ui.grid[2][2].Y), 140, rl.White)
+	rl.DrawText("By Tom5521", rint(ui.grid[2][5].X), rint(ui.grid[2][5].Y), 30, rl.Gray)
 
 	muteTxt := "Mute"
 	if *g.Options.Muted {

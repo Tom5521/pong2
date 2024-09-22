@@ -2,6 +2,7 @@ package main
 
 type (
 	float = float32
+	rint  = int32
 )
 
 const (
