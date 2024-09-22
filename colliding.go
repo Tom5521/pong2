@@ -43,7 +43,7 @@ func (g *Game) checkCollisions() {
 
 		audio.Play("beep")
 	// devel.
-	case devel, g.Ball.hitLast:
+	case devel && g.Ball.hitLast:
 		if g.Ball.hitLast {
 			g.Ball.hits++
 		}
