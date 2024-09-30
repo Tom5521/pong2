@@ -8,11 +8,10 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-func NewGame() Game {
-	var g Game
+func NewGame() (g Game) {
 	g.ResetInstances()
 
-	return g
+	return
 }
 
 func (g *Game) appendUpdateDrawers(appends ...any) {

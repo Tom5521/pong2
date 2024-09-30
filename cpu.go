@@ -6,12 +6,12 @@ type CPU struct {
 	ballYPtr *float
 }
 
-func NewCPU(ballYPtr *float) *CPU {
-	cpu := &CPU{NewPaddle(), ballYPtr}
+func NewCPU(ballYPtr *float) (cpu *CPU) {
+	cpu = &CPU{NewPaddle(), ballYPtr}
 	cpu.Speed /= 2
 	cpu.X = 0
 
-	return cpu
+	return
 }
 
 func (c *CPU) Update() {
