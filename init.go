@@ -58,7 +58,7 @@ func (g *Game) initTextFields() {
 	t.PlayerScore = NewText(
 		strconv.Itoa(int(g.Player.Score)),
 		50,
-		rl.Gray,
+		rl.White,
 		rl.Vector2{},
 	)
 	t.PlayerScore.Y = Height/2 - t.PlayerScore.Measure().Y/2
@@ -68,7 +68,7 @@ func (g *Game) initTextFields() {
 	t.CPUScore = NewText(
 		strconv.Itoa(int(g.CPU.Score)),
 		50,
-		rl.Gray,
+		rl.White,
 		rl.Vector2{},
 	)
 	t.CPUScore.Y = t.PlayerScore.Y
