@@ -75,7 +75,7 @@ func (g *Game) checkPoints() {
 	prect := rl.Rectangle{
 		Width:  1,
 		Height: Height,
-		X:      Width - 11,
+		X:      Width,
 		Y:      0,
 	}
 	player := rl.CheckCollisionCircleRec(
@@ -87,7 +87,7 @@ func (g *Game) checkPoints() {
 	crect := rl.Rectangle{
 		Width:  1,
 		Height: Height,
-		X:      11,
+		X:      0,
 		Y:      0,
 	}
 	cpu := rl.CheckCollisionCircleRec(

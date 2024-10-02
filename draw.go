@@ -94,7 +94,7 @@ func (g *Game) Draw() {
 			rl.DarkGray,
 		)
 
-		rl.DrawFPS(0, 0)
+		rl.DrawFPS(11, 11)
 	}
 
 	if g.GUI.Visible {
