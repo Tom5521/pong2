@@ -4,7 +4,7 @@ devel := env_var_or_default("devel","")
 run:
     CC=gcc go run -v -tags sdl .
 run-devel:
-    CC=clang go run -v -tags "sdl devel" .
+    CC=gcc go run -v -tags "sdl devel" .
 
 release:
     just compile

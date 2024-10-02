@@ -45,4 +45,11 @@ func (p *Paddle) Update() {
 
 func (p Paddle) Draw() {
 	rl.DrawRectangleRec(p.Rectangle, rl.White)
+	rl.DrawRectangleLines(
+		rint(p.X),
+		rint(p.Y),
+		rint(p.Width),
+		rint(p.Height),
+		rl.Black,
+	)
 }

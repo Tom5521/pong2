@@ -54,7 +54,37 @@ func (g *Game) RenderGUI() {
 	}
 }
 
+func (g *Game) DrawBackground() {
+	rl.ClearBackground(rl.DarkGreen)
+
+	// Draw window borders
+	rl.DrawRectangleLinesEx(
+		rl.Rectangle{
+			Width:  Width,
+			Height: Height,
+		},
+		10,
+		rl.White,
+	)
+
+	// Draw center-line
+	rl.DrawLineEx(
+		rl.Vector2{
+			X: Width / 2,
+			Y: 0,
+		},
+		rl.Vector2{
+			X: Width / 2,
+			Y: Height,
+		},
+		10,
+		rl.White,
+	)
+}
+
 func (g *Game) Draw() {
+	g.DrawBackground()
+
 	if devel {
 		rl.DrawLine(
 			0,
@@ -72,14 +102,6 @@ func (g *Game) Draw() {
 		g.RenderGUI()
 		return
 	}
-
-	rl.DrawLine(
-		Width/2,
-		0,
-		Width/2,
-		Height,
-		rl.DarkGray,
-	)
 
 	for _, t := range g.Texts.Texts {
 		t.Draw()

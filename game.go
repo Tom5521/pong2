@@ -101,7 +101,6 @@ func (g *Game) Run() {
 
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
-		rl.ClearBackground(rl.Black)
 
 		g.Update()
 		g.Draw()
